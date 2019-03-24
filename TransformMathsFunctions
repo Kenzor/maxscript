@@ -1,0 +1,28 @@
+/*
+plane and plane:
+by prettyPixel
+
+
+Plane-Plane Intersection : find the line which is the intersection of 2 planes
+p1 : a point of the plane 1
+n1 : the normal of the plane 1
+*/
+
+fn planePlaneIntersect p1 n1 p2 n2 = (
+	-- n1, n2 are normalized
+	local lineVector = cross n1 n2
+	local proj1=(dot n1 p1)*n1
+	local proj2=(dot n2 p2)*n2
+	local perp1=cross n1 (normalize lineVector)
+	local perp2=cross n2 (normalize lineVector)
+	local cr = cross (proj2-proj1) perp2
+	local intersectionPoint = proj1 + (perp1*( (dot cr lineVector) / ((length lineVector)^2)) )
+	ray intersectionPoint lineVector
+	)
+I think that it is not the easiest solution. If you know a better means…
+see also : Eric W. Weisstein. From MathWorld–A Wolfram Web Resource.
+http://mathworld.wolfram.com/Plane-PlaneIntersection.html1
+
+-- Plane-Plane Angle : find the angle between two planes n1 and n2 (normals)
+
+fn getVectorsAngle n1 n2 = ( acos (dot (normalize n1) (normalize n2)) )
